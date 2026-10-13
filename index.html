@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jiayi Guo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+  /* Layout: one narrow reading column, generous whitespace, hairline section labels in the margin on wide screens */
+  :root {
+    --bg: #fbfbf9;
+    --fg: #1c1c1a;
+    --muted: #6d6c66;
+    --rule: #e3e2dc;
+    --accent: #2f4f80;
+    --serif: "Times New Roman", Times, "Tinos", "Liberation Serif", "Songti SC", serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161615; --fg: #e8e6e0; --muted: #9a988f; --rule: #2d2c29; --accent: #a3b8de;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161615; --fg: #e8e6e0; --muted: #9a988f; --rule: #2d2c29; --accent: #a3b8de;
+    color-scheme: dark;
+  }
+
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    font-optical-sizing: auto;
+  }
+  .page {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding-inline: 1.25rem;
+    padding-block: clamp(3rem, 10vw, 6.5rem) 4rem;
+    display: grid;
+    gap: 3.25rem;
+  }
+
+  a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.18em; text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+  a:hover { text-decoration-color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+  header { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem; align-items: center; }
+  .intro { display: grid; gap: 0.9rem; min-width: 0; }
+  .photo { position: relative; width: 8.5rem; aspect-ratio: 1; max-width: 100%; overflow: hidden; border-radius: 2px; background: var(--rule); }
+  .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+  .photo-empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 0.85rem; }
+  h1 {
+    font-weight: 400;
+    font-size: clamp(2.6rem, 8vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .role { margin: 0; color: var(--muted); font-size: 1.05rem; }
+  .links { display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; margin: 0.2rem 0 0; padding: 0; list-style: none; font-size: 1rem; }
+
+  .bio p { margin: 0; }
+  .bio p + p { margin-top: 1em; }
+
+  section { display: grid; gap: 1.1rem; }
+  h2 {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .news { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+  .news li { display: grid; grid-template-columns: 5.2rem 1fr; gap: 1rem; }
+  .date { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 1rem; padding-top: 0.08em; }
+  .news li > span:last-child { min-width: 0; }
+
+  .pub { display: grid; gap: 0.25rem; }
+  .pub-title { margin: 0; font-weight: 700; line-height: 1.4; text-wrap: pretty; }
+  .pub-authors, .pub-venue { margin: 0; font-size: 1rem; }
+  .pub-authors { color: var(--muted); }
+  .pub-authors .me { color: var(--fg); }
+  .pub-venue em { font-style: italic; }
+  .pub-note { margin: 0.35rem 0 0; font-size: 1rem; color: var(--muted); }
+  .pub-links { display: flex; gap: 0.9rem; font-size: 0.95rem; margin-top: 0.15rem; }
+
+  .edu { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; }
+  .edu li { display: grid; grid-template-columns: 1fr auto; gap: 0.1rem 1rem; }
+  .edu .school { font-weight: 700; }
+  .edu .detail { grid-column: 1 / -1; color: var(--muted); font-size: 1rem; }
+  .edu .years { color: var(--muted); font-size: 1rem; font-variant-numeric: tabular-nums; }
+
+  footer { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+
+  @media (max-width: 30rem) {
+    body { font-size: 1.0625rem; }
+    header { grid-template-columns: 1fr; }
+    .photo { order: -1; width: 7rem; }
+    .news li { grid-template-columns: 1fr; gap: 0; }
+  }
+</style>
+</head>
+<body>
+
+<main class="page">
+  <header>
+    <div class="intro">
+      <h1>Jiayi Guo</h1>
+      <p class="role">PhD student in Statistics, Columbia University</p>
+      <ul class="links">
+        <li><a href="mailto:jg5168@columbia.edu">Email</a></li>
+        <li><a href="https://scholar.google.com/citations?user=rHFxx5sAAAAJ">Google Scholar</a></li>
+        <li><a href="https://github.com/shark0926">GitHub</a></li>
+      </ul>
+    </div>
+    <div class="photo">
+      <img src="photo.jpg" alt="Photo of Jiayi Guo">
+      <span class="photo-empty">photo.jpg</span>
+    </div>
+  </header>
+
+  <div class="bio">
+    <p>I am a first-year PhD student in the Department of Statistics at Columbia University. I am broadly interested in causal inference and its intersection with the social sciences, as well as statistical learning. Previously, I worked on evaluating heterogeneous treatment effect estimators.</p>
+    <p>Before Columbia, I studied statistics at the School of Mathematical Sciences, Peking University, with a double degree in sociology, where I was fortunate to work with <a href="https://haoxuanli-pku.github.io/">Prof. Haoxuan Li</a>, <a href="https://scholar.google.com/citations?user=yKj_YmAAAAAJ">Prof. Peng Wu</a>, and <a href="https://zijungao.github.io/">Prof. Zijun Gao</a>.</p>
+  </div>
+
+  <section>
+    <h2>News</h2>
+    <ul class="news">
+      <li><span class="date">2026.09</span><span>Started my PhD in Statistics at Columbia University, and passed the qualification exam upon arrival.</span></li>
+      <li><span class="date">2026.01</span><span>Our paper on evaluating heterogeneous treatment effect estimators was accepted to ICLR 2026.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Publications</h2>
+    <article class="pub">
+      <p class="pub-title">A Relative Error-Based Evaluation Framework of Heterogeneous Treatment Effect Estimators</p>
+      <p class="pub-authors"><span class="me">Jiayi Guo</span>, Haoxuan Li, Ye Tian, Peng Wu</p>
+      <p class="pub-venue"><em>International Conference on Learning Representations (ICLR)</em>, 2026</p>
+      <p class="pub-note">Relative-error evaluation of HTE estimators that stays valid when the outcome model is misspecified, requiring only a consistent propensity score.</p>
+      <div class="pub-links"><a href="https://proceedings.iclr.cc/paper_files/paper/2026/hash/6025d66888c9840ed3174c6ebb48af74-Abstract-Conference.html">Paper</a><a href="#">Poster</a></div>
+    </article>
+  </section>
+
+    <section>
+    <h2>Preprints</h2>
+    <article class="pub">
+      <p class="pub-title">Trustworthy Selection of Heterogeneous Treatment Effect Estimators</p>
+      <p class="pub-authors"><span class="me">Jiayi Guo</span>, Zijun Gao</p>
+      <p class="pub-venue"><em>arXiv preprint</em> arXiv:2511.18464, 2025</p>
+            <p class="pub-note">Casts HTE estimator selection as a multiple testing problem, yielding a ground-truth-free selection set that contains the best estimator with guaranteed probability while being kept small through exponential weighting.</p>
+      <div class="pub-links"><a href="https://arxiv.org/abs/2511.18464">arXiv</a></div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <ul class="edu">
+      <li>
+        <span class="school">Columbia University</span><span class="years">2026 –</span>
+        <span class="detail">PhD in Statistics</span>
+      </li>
+      <li>
+        <span class="school">Peking University</span><span class="years">2022 – 2026</span>
+        <span class="detail">BS in Statistics, School of Mathematical Sciences</span>
+      </li>
+      <li>
+        <span class="school">Peking University</span><span class="years">2023 – 2026</span>
+        <span class="detail">BL in Sociology, Department of Sociology</span>
+      </li>
+    </ul>
+  </section>
+
+  <footer>Last updated October 2026</footer>
+</main>
+<script>
+  document.querySelectorAll('.photo img').forEach(function (img) {
+    function fail() { img.hidden = true; }
+    img.addEventListener('error', fail);
+    if (img.complete && !img.naturalWidth) fail();
+  });
+</script>
+</body>
+</html>
