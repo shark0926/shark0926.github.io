@@ -190,5 +190,69 @@
     if (img.complete && !img.naturalWidth) fail();
   });
 </script>
+<script>
+  // 像素鲨鱼：在页面底部来回游动
+  (function () {
+    var SCALE = 4; // 每个像素点的大小，改成 3 鲨鱼变小，改成 5 变大
+    var COLORS = { B: "#6d8fb3", D: "#4a6a8f", W: "#f1f3f5", E: "#1c1c1a" };
+    var A = [
+      ".......DD.........",
+      "......DDD.........",
+      "DD...BBBBBBBB.....",
+      ".DD.BBBBBBBBBBB...",
+      "..DBBBBBBBBBBBEBB.",
+      "..DBBBBBBBBBBBBEBB",
+      ".DD.WWWWWWWWWWWW..",
+      "DD...WWWWWWWWWW...",
+      "........DD........",
+      ".........D........"
+    ];
+    var tailB = { 2: "...", 3: "DD.", 4: ".DD", 5: ".DD", 6: "DD.", 7: "..." };
+    var B = A.map(function (row, i) { return tailB[i] ? tailB[i] + row.slice(3) : row; });
+
+    var w = A[0].length * SCALE, h = A.length * SCALE;
+    var canvas = document.createElement("canvas");
+    canvas.width = w; canvas.height = h;
+    canvas.setAttribute("aria-hidden", "true");
+    canvas.style.cssText = "position:fixed;left:0;bottom:24px;width:" + w + "px;height:" + h +
+      "px;image-rendering:pixelated;pointer-events:none;z-index:10;";
+    document.body.appendChild(canvas);
+    var ctx = canvas.getContext("2d");
+
+    function draw(frame) {
+      ctx.clearRect(0, 0, w, h);
+      frame.forEach(function (row, y) {
+        for (var x = 0; x < row.length; x++) {
+          var c = COLORS[row[x]];
+          if (c) { ctx.fillStyle = c; ctx.fillRect(x * SCALE, y * SCALE, SCALE, SCALE); }
+        }
+      });
+    }
+
+    // 系统开了「减少动态效果」时，鲨鱼静止停在右下角
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      draw(A);
+      canvas.style.left = "auto"; canvas.style.right = "24px";
+      return;
+    }
+
+    var x = 0, dir = 1, speed = 45, last = null, t = 0; // speed：每秒移动的像素数
+    function step(now) {
+      if (last === null) last = now;
+      var dt = Math.min((now - last) / 1000, 0.05);
+      last = now; t += dt;
+      var maxX = window.innerWidth - w;
+      x += dir * speed * dt;
+      if (x > maxX) { x = maxX; dir = -1; }
+      if (x < 0) { x = 0; dir = 1; }
+      draw(Math.floor(t * 4) % 2 ? B : A);
+      var bob = Math.sin(t * 2) * 4;
+      canvas.style.transform = "translate(" + x + "px," + bob + "px) scaleX(" + dir + ")";
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  })();
+</script>
 </body>
 </html>
