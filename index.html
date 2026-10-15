@@ -181,6 +181,23 @@
     </ul>
   </section>
 
+  <section>
+  <h2>Honors &amp; Awards</h2>
+  <ul class="edu">
+    <li>
+      <span class="school">Outstanding Graduate</span><span class="years">2026</span>
+      <span class="detail">School of Mathematical Sciences, Peking University</span>
+    </li>
+    <li>
+      <span class="school">Freshman Scholarship</span><span class="years">2022</span>
+      <span class="detail">Peking University</span>
+    </li>
+    <li>
+      <span class="school">Silver Medal, China Mathematical Olympiad (CMO)</span><span class="years">2020</span>
+    </li>
+  </ul>
+</section>
+
   <footer>Last updated October 2026</footer>
 </main>
 <script>
@@ -191,9 +208,8 @@
   });
 </script>
 <script>
-  // 像素鲨鱼：在页面底部来回游动
   (function () {
-    var SCALE = 4; // 每个像素点的大小，改成 3 鲨鱼变小，改成 5 变大
+    var SCALE = 4;
     var COLORS = { B: "#6d8fb3", D: "#4a6a8f", W: "#f1f3f5", E: "#1c1c1a" };
     var A = [
       ".......DD.........",
@@ -229,7 +245,6 @@
       });
     }
 
-    // 系统开了「减少动态效果」时，鲨鱼静止停在右下角
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
       draw(A);
@@ -237,7 +252,7 @@
       return;
     }
 
-    var x = 0, dir = 1, speed = 45, last = null, t = 0; // speed：每秒移动的像素数
+    var x = 0, dir = 1, speed = 45, last = null, t = 0; 
     function step(now) {
       if (last === null) last = now;
       var dt = Math.min((now - last) / 1000, 0.05);
